@@ -1,79 +1,77 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use backend\assets\AppAsset;
+use lkk\inspinia\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use common\widgets\Alert;
+use yii\bootstrap\Alert;
 
 AppAsset::register($this);
+$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/lkk/yii2-inspinia/assets');
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
+
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php $this->registerCsrfMetaTags() ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
-<?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
+<body><?php $this->beginBody() ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+<div id="wrapper" class="">
+
+    <?= $this->render('sidebar', ['directoryAsset' => $directoryAsset]) ?>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <?= $this->render('header', ['directoryAsset' => $directoryAsset]) ?>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <?php if (isset($this->blocks['content-header'])) { ?>
+                <?= $this->blocks['content-header'] ?>
+            <?php } else { ?>
+                <div class="col-sm-<?= isset($this->blocks['content-header-actions']) ? 6 : 12 ?>">
+                    <h2><?= $this->title ?></h2>
+
+                    <?=
+                    Breadcrumbs::widget([
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                        'activeItemTemplate' => "<li class=\"active\"><strong>{link}</strong></li>\n"
+                    ])
+                    ?>
+                </div>
+                <?php if (isset($this->blocks['content-header-actions'])): ?>
+                    <div class="col-sm-6">
+                        <div class="title-action">
+                            <?= $this->blocks['content-header-actions'] ?>
+                        </div>
+                    </div>
+                <?php endif ?>
+            <?php } ?>
+
+        </div>
+
+        <div class="wrapper wrapper-content">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <?= $content ?>
+                </div>
+            </div>
+        </div>
+        <?= $this->render('footer', ['directoryAsset' => $directoryAsset]) ?>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
-
 <?php $this->endBody() ?>
 </body>
 </html>

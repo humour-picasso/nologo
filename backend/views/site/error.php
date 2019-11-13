@@ -8,20 +8,14 @@
 use yii\helpers\Html;
 
 $this->title = $name;
+
+
 ?>
-<div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <div class="alert alert-danger">
+<div class="middle-box text-center animated bounceIn">
+    <h3 class="font-bold"><?= Html::encode($this->title) ?></h3>
+    <div class="error-desc">
         <?= nl2br(Html::encode($message)) ?>
+        <br/><a href="/" class="btn btn-primary m-t"><?=\Yii::t('app', '回到首页')?></a>
     </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
 </div>

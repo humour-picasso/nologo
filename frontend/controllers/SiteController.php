@@ -26,28 +26,33 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+//            'access' => [
+//                'class' => AccessControl::className(),
+//                'only' => ['logout', 'signup'],
+//                'rules' => [
+//                    [
+//                        'actions' => ['signup'],
+//                        'allow' => true,
+//                        'roles' => ['?'],
+//                    ],
+//                    [
+//                        'actions' => ['test2'],
+//                        'allow' => true,
+//                        'roles' => ['?'],
+//                    ],
+//                    [
+//                        'actions' => ['logout'],
+//                        'allow' => true,
+//                        'roles' => ['@'],
+//                    ],
+//                ],
+//            ],
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'logout' => ['post'],
+//                ],
+//            ],
         ];
     }
 
@@ -74,6 +79,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         return $this->render('index');
     }
 
@@ -256,5 +262,17 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    public function actionTest2()
+    {
+        header( "Content-Type: video/mp4" );
+// attachment表明需要下载，filename是文件名
+        header("Content-Disposition: attachment;filename=qwe.mp4");
+// echo '1.mp4';
+// 读取视频
+        $movie = file_get_contents("http://v26-dy.ixigua.com/c4fc7d019b0913b3f279fe42fb6b6aa6/5dc3d8ab/video/m/220074bf9274e5a48f5a6766e85da3f53e31163fa7450000873d17d2e297/?a=1128&br=1535&cr=0&cs=0&dr=0&ds=3&er=&l=20191107154055010013016222840811&lr=&qs=0&rc=anYzbndmdzp5cDMzOWkzM0ApODxlNWhnM2RlNzlmZjMzPGdiZzVsMnFwY29fLS1hLS9zc2A1NV80Li8tNjUvYTAvYy86Yw%3D%3D");
+// 以流的形式输出到客户端进行保存
+        echo $movie;
     }
 }
