@@ -1,9 +1,7 @@
 <?php
 $components = require(__DIR__  . '/' . YII_ENV . '/components.php');
 $params = require(__DIR__  . '/' . YII_ENV . '/params.php');
-echo "<pre>";
-print_r($components);
-exit;
+
 return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
