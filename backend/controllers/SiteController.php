@@ -62,6 +62,9 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main';
+        echo "<pre>";
+        print_r(Yii::$app->db);
+        exit;
         $c = Customer::findOne('1');
         echo "<pre>";
         print_r($c);
