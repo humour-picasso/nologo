@@ -1,7 +1,4 @@
 <?php
-echo "<pre>";
-print_r(YII_ENV);
-exit;
 $components = require(__DIR__  . '/' . YII_ENV . '/components.php');
 $params = require(__DIR__  . '/' . YII_ENV . '/params.php');
 
