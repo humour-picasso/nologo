@@ -44,7 +44,9 @@ class ApiController extends BaseController
         $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$this->appid."&secret=".$this->secret."&js_code=".$code."&grant_type=authorization_code";
         $request = $client->request('GET',$url);
         $result = \GuzzleHttp\json_decode($request->getBody()->getContents());
-
+        echo "<pre>";
+        print_r($result);
+        exit;
         if (isset($result->errcode) && $result->errcode != 0){
             $data['code'] = ResponseCode::INVALID_PARAMS;
             return ApiResponse::fail($data);
