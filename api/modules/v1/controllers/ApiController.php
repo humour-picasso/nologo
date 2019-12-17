@@ -3,7 +3,6 @@
 namespace api\modules\v1\controllers;
 
 use api\modules\v1\model\Customer;
-use Codeception\Template\Api;
 use common\components\ApiResponse;
 use common\components\ResponseCode;
 use GuzzleHttp\Client;
@@ -18,7 +17,7 @@ class ApiController extends BaseController
     protected function verbs()
     {
         return [
-            'wechat-login' => ['GET','OPTIONS'],
+            'wechat-login' => ['POST','OPTIONS'],
         ];
     }
 
