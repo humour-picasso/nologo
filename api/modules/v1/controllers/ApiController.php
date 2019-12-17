@@ -18,7 +18,7 @@ class ApiController extends BaseController
     protected function verbs()
     {
         return [
-            'wechat-login' => ['POST','OPTIONS'],
+            'wechat-login' => ['GET','OPTIONS'],
         ];
     }
 
@@ -40,6 +40,7 @@ class ApiController extends BaseController
     {
         echo "<pre>";
         print_r(1111);
+        print_r(\Yii::$app->db);
         exit;
         $code = \Yii::$app->request->post('code');
         $client = new Client();
