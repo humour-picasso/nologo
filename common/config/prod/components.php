@@ -8,9 +8,9 @@
 return [
     'database' => [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=192.168.10.10;dbname=nologo',
-        'username' => 'homestead',
-        'password' => 'secret',
+        'dsn' => 'mysql:host=172.26.241.7;dbname=nologo',
+        'username' => 'nologo',
+        'password' => '!@noLogo@!',
         'charset' => 'utf8mb4',
         'tablePrefix' => 'nl_',
     ],
