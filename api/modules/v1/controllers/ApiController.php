@@ -37,9 +37,6 @@ class ApiController extends BaseController
 
     public function actionWechatLogin()
     {
-        echo "<pre>";
-        print_r(\Yii::$app->db);
-        exit;
         $code = \Yii::$app->request->post('code');
         $client = new Client();
 
