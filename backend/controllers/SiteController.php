@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Customer;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -61,6 +62,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'main';
+        $c = Customer::findOne('1');
+        echo "<pre>";
+        print_r($c);
+        exit;
         return $this->render('index');
     }
 
