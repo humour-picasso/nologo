@@ -6,13 +6,13 @@
  * Time: 15:08
  */
 return [
-    'cronJobs' =>[
-        'console/report' => [
-            'cron'      => '0 0 * * *',
-        ],
-        'console/update-app-status' => [
-            'cron'      => '5 * * * *',
-        ],
-
-    ],
+//    'cronJobs' =>[
+//        'console/report' => [
+//            'cron'      => '0 0 * * *',
+//        ],
+//        'console/update-app-status' => [
+//            'cron'      => '5 * * * *',
+//        ],
+//
+//    ],
 ];
