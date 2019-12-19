@@ -6,6 +6,7 @@ use api\modules\v1\model\Customer;
 use common\components\ApiResponse;
 use common\components\ResponseCode;
 use GuzzleHttp\Client;
+use yii\web\Response;
 
 class ApiController extends BaseController
 {
@@ -121,10 +122,18 @@ class ApiController extends BaseController
     {
         $url = \Yii::$app->request->post('url');
         $client = new Client();
-        $response = $client->request('GET',$url);
-        echo "<pre>";
-        print_r($response->getBody()->getContents());
-        exit;
+        $file = $client->request('GET',$url)->getBody()->read();
+
+        $response = \Yii::$app->response;
+        $response->format = Response::FORMAT_RAW;
+        $header =  $response->headers;
+        if ($header->has('Content-Type')) {
+            $header->set("Content-Type","video/mp4");
+        } else {
+            $header->set("Content-Type","video/mp4");
+        }
+        $response->send();
+        readfile($file);
     }
 
 }
