@@ -150,7 +150,7 @@ class ApiController extends BaseController
         fwrite($video, $content);
         fclose($video);
 
-        $size = filesize($video);
+        $size = filesize($filename);
         header("Content-type: video/mp4");
         header("Accept-Ranges: bytes");
         if(isset($_SERVER['HTTP_RANGE'])){
@@ -166,7 +166,7 @@ class ApiController extends BaseController
         header("Content-Length: " . ($end - $begin + 1));
         header("Content-Disposition: filename=".$filename);
         header("Content-Range: bytes ".$begin."-".$end."/".$size);
-        $fp = fopen($video, 'rb');
+        $fp = fopen($filename, 'rb');
         fseek($fp, $begin);
         while(!feof($fp)) {
             $p = min(1024, $end - $begin + 1);
