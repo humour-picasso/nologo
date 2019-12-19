@@ -22,7 +22,8 @@
         "guzzlehttp/guzzle": "^6.3",
         "denisogr/yii2-cronjobs": "dev-master",
         "mdmsoft/yii2-admin": "~2.0",
-        "lkk/yii2-inspinia":"*"
+        "lkk/yii2-inspinia":"*",
+        "php-ffmpeg/php-ffmpeg": "^0.14.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
