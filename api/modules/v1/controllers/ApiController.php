@@ -124,13 +124,57 @@ class ApiController extends BaseController
 
         $client = new Client();
 
-        $file = $client->get($url)->getBody()->getContents();
+        $content = $client->get($url)->getBody()->getContents();
 
+        $code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $rand = $code[rand(0,25)]
+            .strtoupper(dechex(date('m')))
+            .date('d').substr(time(),-5)
+            .substr(microtime(),2,5)
+            .sprintf('%02d',rand(0,99));
+        for(
+            $a = md5( $rand, true ),
+            $s = '0123456789ABCDEFGHIJKLMNOPQRSTUV',
+            $d = '',
+            $f = 0;
+            $f < 8;
+            $g = ord( $a[ $f ] ),
+            $d .= $s[ ( $g ^ ord( $a[ $f + 8 ] ) ) - $g & 0x1F ],
+            $f++
+        );
+
+        $filename = $d.".mp4";
+
+        $video = fopen($filename, "w") or die("Unable to open file!");
+
+        fwrite($video, $content);
+        fclose($video);
+
+        $size = filesize($video);
         header("Content-type: video/mp4");
-
         header("Accept-Ranges: bytes");
+        if(isset($_SERVER['HTTP_RANGE'])){
+            header("HTTP/1.1 206 Partial Content");
+            list($name, $range) = explode("=", $_SERVER['HTTP_RANGE']);
+            list($begin, $end) =explode("-", $range);
+            if($end == 0){
+                $end = $size - 1;
+            }
+        }else {
+            $begin = 0; $end = $size - 1;
+        }
+        header("Content-Length: " . ($end - $begin + 1));
+        header("Content-Disposition: filename=".$filename);
+        header("Content-Range: bytes ".$begin."-".$end."/".$size);
+        $fp = fopen($video, 'rb');
+        fseek($fp, $begin);
+        while(!feof($fp)) {
+            $p = min(1024, $end - $begin + 1);
+            $begin += $p;
+            echo fread($fp, $p);
+        }
+        fclose($fp);
 
-        echo $file;
     }
 
 }
