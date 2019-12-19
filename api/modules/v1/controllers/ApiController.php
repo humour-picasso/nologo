@@ -133,7 +133,8 @@ class ApiController extends BaseController
             $header->set("Content-Type","video/mp4");
         }
 
-        $response->send($file);
+        $response->send();
+        readfile($file);
     }
 
 }
