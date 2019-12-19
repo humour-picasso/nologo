@@ -121,10 +121,9 @@ class ApiController extends BaseController
     public function actionDownload()
     {
         $url = \Yii::$app->request->post('url');
-        $client = new Client();
-        $response = $client->get($url);
+        $res = file_get_contents($url);
         echo "<pre>";
-        print_r($response);
+        print_r($res);
         exit;
 
 //        $response = \Yii::$app->response;
