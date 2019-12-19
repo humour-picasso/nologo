@@ -166,14 +166,10 @@ class ApiController extends BaseController
         header("Content-Length: " . ($end - $begin + 1));
         header("Content-Disposition: filename=".$filename);
         header("Content-Range: bytes ".$begin."-".$end."/".$size);
-        $fp = fopen($filename, 'rb');
-        fseek($fp, $begin);
-        while(!feof($fp)) {
-            $p = min(1024, $end - $begin + 1);
-            $begin += $p;
-            echo fread($fp, $p);
-        }
-        fclose($fp);
+
+        $response = file_get_contents($filename);
+        echo $response;
+
 
     }
 
