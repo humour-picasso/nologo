@@ -143,7 +143,7 @@ class ApiController extends BaseController
             $f++
         );
 
-        $filename = "/web/".$d.".mp4";
+        $filename = __DIR__ . "/../../../web/".$d.".mp4";
 
         $video = fopen($filename, "w") or die("Unable to open file!");
 
