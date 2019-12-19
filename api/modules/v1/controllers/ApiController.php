@@ -121,10 +121,7 @@ class ApiController extends BaseController
     public function actionDownload()
     {
         $url = \Yii::$app->request->post('url');
-        $res = file_get_contents($url);
-        echo "<pre>";
-        print_r($res);
-        exit;
+        header("location:".$url);
 
 //        $response = \Yii::$app->response;
 //        $response->format = Response::FORMAT_RAW;
