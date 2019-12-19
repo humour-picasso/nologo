@@ -122,7 +122,7 @@ class ApiController extends BaseController
     {
         $url = \Yii::$app->request->post('url');
         $client = new Client();
-        $response = $client->request('GET',$url);
+        $response = $client->get($url);
         echo "<pre>";
         print_r($response);
         exit;
