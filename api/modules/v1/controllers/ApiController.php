@@ -114,4 +114,17 @@ class ApiController extends BaseController
         return ApiResponse::success($data);
     }
 
+    /**
+     * 下载解析视频到本地
+     */
+    public function actionDownload()
+    {
+        $url = \Yii::$app->request->post('url');
+        $client = new Client();
+        $response = $client->request('GET',$url);
+        echo "<pre>";
+        print_r($response->getBody()->getContents());
+        exit;
+    }
+
 }
