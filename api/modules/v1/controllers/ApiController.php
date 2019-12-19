@@ -122,19 +122,22 @@ class ApiController extends BaseController
     {
         $url = \Yii::$app->request->post('url');
         $client = new Client();
-        $file = $client->request('GET',$url)->getBody()->read();
+        $response = $client->request('GET',$url);
+        echo "<pre>";
+        print_r($response);
+        exit;
 
-        $response = \Yii::$app->response;
-        $response->format = Response::FORMAT_RAW;
-        $header =  $response->headers;
-        if ($header->has('Content-Type')) {
-            $header->set("Content-Type","video/mp4");
-        } else {
-            $header->set("Content-Type","video/mp4");
-        }
-
-        $response->send();
-        readfile($file);
+//        $response = \Yii::$app->response;
+//        $response->format = Response::FORMAT_RAW;
+//        $header =  $response->headers;
+//        if ($header->has('Content-Type')) {
+//            $header->set("Content-Type","video/mp4");
+//        } else {
+//            $header->set("Content-Type","video/mp4");
+//        }
+//
+//        $response->send();
+//        readfile($file);
     }
 
 }
