@@ -121,20 +121,20 @@ class ApiController extends BaseController
     public function actionDownload()
     {
         $url = \Yii::$app->request->post('url');
-        $file = file_get_contents($url);
-//        header('pragma:public');
-//        header("Content-Disposition:attachment;filename=");
-//        echo $file;
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="'.basename($file).'"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($file));
-        readfile($file);
-        exit;
+        $client = new Client();
+        $file = $client->request('GET',$url)->getBody()->read();
 
+        $response = \Yii::$app->response;
+        $response->format = Response::FORMAT_RAW;
+        $header =  $response->headers;
+        if ($header->has('Content-Type')) {
+            $header->set("Content-Type","video/mp4");
+        } else {
+            $header->set("Content-Type","video/mp4");
+        }
+
+        $response->send();
+        readfile($file);
     }
 
 }
