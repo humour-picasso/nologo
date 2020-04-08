@@ -110,9 +110,18 @@ class ApiController extends BaseController
             ]
         ]);
 
-
-        $data['data'] = \GuzzleHttp\json_decode($res->getBody()->getContents());
-        return ApiResponse::success($data);
+        $response = \GuzzleHttp\json_decode($res->getBody()->getContents());
+        if ($response['code'] == 100){
+            $result = [
+                'code' => 100,
+                'info' => '获取成功',
+                'url'  => $response['downurl'],
+            ];
+            $data['data'] = $result;
+            return ApiResponse::success($data);
+        }else{
+            return ApiResponse::fail();
+        }
     }
 
     /**
