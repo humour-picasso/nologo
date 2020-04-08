@@ -91,7 +91,7 @@ class ApiController extends BaseController
     public function actionVideoConversion()
     {
         $requestUrl = \Yii::$app->request->post('videoUrl');
-        $url = "http://qsy.weikan.club/index.php/index/jiexi.html";
+        $url = "https://www.tingsang.com/ajax/analyze.php";
 
         $headers = [
 
@@ -106,7 +106,7 @@ class ApiController extends BaseController
 
         $res = $client->request('POST', $url,
             ['form_params' => [
-                'url' => $requestUrl,
+                'link' => $requestUrl,
             ]
         ]);
 
