@@ -110,7 +110,7 @@ class ApiController extends BaseController
             ]
         ]);
 
-        $response = \GuzzleHttp\json_decode($res->getBody()->getContents());
+        $response = $res->getBody()->getContents();
         echo "<pre>";
         print_r($response);
         exit;
