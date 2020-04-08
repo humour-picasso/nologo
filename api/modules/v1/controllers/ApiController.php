@@ -95,9 +95,9 @@ class ApiController extends BaseController
 
         $headers = [
 
-            'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Content-Type' => 'application/json; charset=UTF-8',
 
-            'X-Requested-With' => 'XMLHttpRequest',
+//            'X-Requested-With' => 'XMLHttpRequest',
         ];
 
         $client = new Client(['headers'=>$headers]);
