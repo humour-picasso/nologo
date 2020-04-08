@@ -110,7 +110,7 @@ class ApiController extends BaseController
             ]
         ]);
 
-        $response = $res->getBody()->getContents();
+        $response = json_decode($res->getBody()->getContents(),true);
         echo "<pre>";
         print_r($response);
         exit;
