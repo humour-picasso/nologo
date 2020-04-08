@@ -111,14 +111,12 @@ class ApiController extends BaseController
         ]);
 
         $response = json_decode($res->getBody()->getContents(),true);
-        echo "<pre>";
-        print_r($response);
-        exit;
+
         if ($response['code'] == 100){
             $result = [
                 'code' => 100,
                 'info' => '获取成功',
-                'url'  => $response['downurl'],
+                'url'  => $response['data']['downurl'],
             ];
             $data['data'] = $result;
             return ApiResponse::success($data);
