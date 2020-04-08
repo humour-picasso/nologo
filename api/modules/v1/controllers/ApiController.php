@@ -111,6 +111,9 @@ class ApiController extends BaseController
         ]);
 
         $response = \GuzzleHttp\json_decode($res->getBody()->getContents());
+        echo "<pre>";
+        print_r($response);
+        exit;
         if ($response['code'] == 100){
             $result = [
                 'code' => 100,
