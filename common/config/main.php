@@ -2,6 +2,7 @@
 $components = require(__DIR__  . '/' . YII_ENV . '/components.php');
 $params = require(__DIR__  . '/' . YII_ENV . '/params.php');
 
+
 return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',

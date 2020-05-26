@@ -38,12 +38,8 @@
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false
-        }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+        },
+        "token":"6b9dc5c285e7a0a9cdf7c2ef3b42879e67761152"
+
+    }
 }
