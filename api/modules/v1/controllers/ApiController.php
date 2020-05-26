@@ -5,6 +5,8 @@ namespace api\modules\v1\controllers;
 use api\modules\v1\model\Customer;
 use common\components\ApiResponse;
 use common\components\ResponseCode;
+use common\models\Qingchun;
+use common\models\Xinggan;
 use FFMpeg\FFMpeg;
 use GuzzleHttp\Client;
 
@@ -12,13 +14,15 @@ class ApiController extends BaseController
 {
     public $modelClass = 'api\models\Test';
     private $appid = "wx65f5219f7c4e0132";
-//    private $secret = "aaa";
     private $secret = "6d65a43d105d4b15a4c19144a3b74cce";
 
     protected function verbs()
     {
         return [
             'wechat-login' => ['POST','OPTIONS'],
+            'mv-login' => ['POST','OPTIONS'],
+            'get-xinggan' => ['POST','OPTIONS'],
+            'get-qingchun' => ['POST','OPTIONS'],
         ];
     }
 
@@ -32,6 +36,8 @@ class ApiController extends BaseController
         $behaviors['authenticator']['only'] = [
             'video-conversion',
             'update',
+            'get-xinggan',
+            'get-qingchun'
         ];
         return $behaviors;
     }
@@ -181,6 +187,60 @@ class ApiController extends BaseController
         echo $response;
 
 
+    }
+
+
+    public function actionMvLogin()
+    {
+        $code = \Yii::$app->request->post('code');
+        $client = new Client();
+
+        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx6deba7e9fd8804b8&secret=ff92cb04a0e393f5a6d5f524db6cfef2&js_code=".$code."&grant_type=authorization_code";
+        $request = $client->request('GET',$url);
+        $result = \GuzzleHttp\json_decode($request->getBody()->getContents());
+
+        if (isset($result->errcode) && $result->errcode != 0){
+            $data['code'] = ResponseCode::INVALID_PARAMS;
+            return ApiResponse::fail($data);
+        }else{
+            //检查用户是否存在
+            $check = Customer::find()->where(['openid'=>$result->openid])->one();
+            if($check == null){
+                $customer = new Customer();
+                $customer->openid = $result->openid;
+                $customer->access_token = md5(uniqid() .$result->openid);
+                $customer->register_time = time();
+                $customer->turn_times = 5;//默认转换次数
+
+                if ($customer->save(false)){
+                    $data['data']['access_token'] = $customer->access_token;
+                    return ApiResponse::success($data);
+                }
+            }else{
+                $data['data']['access_token'] = $check->access_token;
+                return ApiResponse::success($data);
+            }
+        }
+    }
+
+    public function actionGetXinggan()
+    {
+        $page = \Yii::$app->request->post('page') ?? 1;
+
+        $xinggan = Xinggan::find()->offset(($page-1)*10)->limit(10)->groupBy('name')->all();
+
+        $data['data'] = $xinggan;
+        return ApiResponse::success($data);
+    }
+
+    public function actionGetQingchun()
+    {
+        $page = \Yii::$app->request->post('page') ?? 1;
+
+        $qingchun = Qingchun::find()->offset(($page-1)*10)->limit(10)->groupBy('name')->all();
+
+        $data['data'] = $qingchun;
+        return ApiResponse::success($data);
     }
 
 }
