@@ -2,6 +2,8 @@
 namespace backend\controllers;
 
 use common\models\Customer;
+use common\models\Qingchun;
+use common\models\Xinggan;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -63,11 +65,11 @@ class SiteController extends Controller
     {
         $this->layout = 'main';
 
-        $c = Customer::findOne('1');
-        echo "<pre>";
-        print_r($c);
-        exit;
-        return $this->render('index');
+        $c = Qingchun::find()->groupBy('img_url')->having('count(*) > 1')->all();
+        foreach ($c as $k=>$v){
+            $result = Qingchun::deleteAll('img_url = :image_url and id != :id',[':image_url'=>$v->img_url,':id'=>$v->id]);
+        }
+
     }
 
     /**

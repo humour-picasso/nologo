@@ -23,6 +23,7 @@ class ApiController extends BaseController
             'mv-login' => ['POST','OPTIONS'],
             'get-xinggan' => ['POST','OPTIONS'],
             'get-qingchun' => ['POST','OPTIONS'],
+            'get-detail' => ['POST','OPTIONS'],
         ];
     }
 
@@ -37,7 +38,8 @@ class ApiController extends BaseController
             'video-conversion',
             'update',
             'get-xinggan',
-            'get-qingchun'
+            'get-qingchun',
+            'get-detail'
         ];
         return $behaviors;
     }
@@ -240,6 +242,20 @@ class ApiController extends BaseController
         $qingchun = Qingchun::find()->offset(($page-1)*10)->limit(10)->groupBy('name')->all();
 
         $data['data'] = $qingchun;
+        return ApiResponse::success($data);
+    }
+
+    public function actionGetDetail()
+    {
+        $name = \Yii::$app->request->post('name') ?? '';
+        $type = \Yii::$app->request->post('type') ?? 0;
+        if ($type){
+            $data = Qingchun::find()->where(['name'=>$name])->all();
+        }else{
+            $data = Xinggan::find()->where(['name'=>$name])->distinct(true)->all();
+        }
+
+        $data['data'] = $data;
         return ApiResponse::success($data);
     }
 
