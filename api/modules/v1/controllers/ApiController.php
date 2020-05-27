@@ -240,7 +240,7 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $qingchun = Tmp::find()->offset(($page-1)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
+        $qingchun =  Tmp::find()->limit(10)->groupBy('name')->orderBy('RAND()')->all();
         if (empty($qingchun)){
             $qingchun = Tmp::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
         }
