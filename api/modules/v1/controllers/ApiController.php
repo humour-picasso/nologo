@@ -253,7 +253,7 @@ class ApiController extends BaseController
         if ($type){
             $data = Tmp::find()->where(['name'=>$name])->all();
         }else{
-            $data = Tmp::find()->where(['name'=>$name])->distinct(true)->all();
+            $data = Tmp::find()->where(['name'=>$name])->all();
         }
 
         $data['data'] = $data;
