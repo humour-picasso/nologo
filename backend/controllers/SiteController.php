@@ -68,7 +68,7 @@ class SiteController extends Controller
 
         $c = Tmp::find()->groupBy('img_url')->having('count(*) > 1')->all();
         foreach ($c as $k=>$v){
-            $result = Qingchun::deleteAll('img_url = :image_url and id != :id',[':image_url'=>$v->img_url,':id'=>$v->id]);
+            $result = Tmp::deleteAll('img_url = :image_url and id != :id',[':image_url'=>$v->img_url,':id'=>$v->id]);
         }
 
     }
