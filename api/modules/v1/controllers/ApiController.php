@@ -251,9 +251,9 @@ class ApiController extends BaseController
         $name = \Yii::$app->request->post('name') ?? '';
         $type = \Yii::$app->request->post('type') ?? 0;
         if ($type){
-            $data = Tmp::find()->where(['name'=>$name])->all();
+            $data = Tmp::find()->where(['name'=>$name])->distinct(true)->all();
         }else{
-            $data = Tmp::find()->where(['name'=>$name])->all();
+            $data = Tmp::find()->where(['name'=>$name])->distinct(true)->all();
         }
 
         $data['data'] = $data;
