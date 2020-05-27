@@ -230,10 +230,10 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $xinggan = Tmp::find()->offset(($page-1)*6)->limit(6)->groupBy('name')->orderBy('id asc')->all();
+        $xinggan = Tmp::find()->offset(($page-1)*6)->limit(6)->groupBy('name')->all();
 
         if (empty($qingchun)){
-            $xinggan = Tmp::find()->offset(($page-8)*6)->limit(6)->groupBy('name')->orderBy('id desc')->all();
+            $xinggan = Tmp::find()->offset(($page-8)*6)->limit(6)->groupBy('name')->all();
         }
         $data['data'] = $xinggan;
         return ApiResponse::success($data);
