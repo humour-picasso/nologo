@@ -6,6 +6,7 @@ use api\modules\v1\model\Customer;
 use common\components\ApiResponse;
 use common\components\ResponseCode;
 use common\models\Qingchun;
+use common\models\Tmp;
 use common\models\Xinggan;
 use FFMpeg\FFMpeg;
 use GuzzleHttp\Client;
@@ -229,7 +230,7 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $xinggan = Xinggan::find()->offset(($page-1)*10)->limit(10)->groupBy('name')->all();
+        $xinggan = Tmp::find()->offset(($page-1)*10)->limit(10)->groupBy('name')->orderBy('id asc')->all();
 
         $data['data'] = $xinggan;
         return ApiResponse::success($data);
@@ -239,7 +240,7 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $qingchun = Qingchun::find()->offset(($page-1)*10)->limit(10)->groupBy('name')->all();
+        $qingchun = Tmp::find()->offset(($page-1)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
 
         $data['data'] = $qingchun;
         return ApiResponse::success($data);
@@ -250,9 +251,9 @@ class ApiController extends BaseController
         $name = \Yii::$app->request->post('name') ?? '';
         $type = \Yii::$app->request->post('type') ?? 0;
         if ($type){
-            $data = Qingchun::find()->where(['name'=>$name])->all();
+            $data = Tmp::find()->where(['name'=>$name])->all();
         }else{
-            $data = Xinggan::find()->where(['name'=>$name])->distinct(true)->all();
+            $data = Tmp::find()->where(['name'=>$name])->distinct(true)->all();
         }
 
         $data['data'] = $data;
