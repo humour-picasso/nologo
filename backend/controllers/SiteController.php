@@ -65,10 +65,11 @@ class SiteController extends Controller
     {
         $this->layout = 'main';
 
-        $c = Qingchun::find()->groupBy('img_url')->having('count(*) > 1')->all();
-        foreach ($c as $k=>$v){
-            $result = Qingchun::deleteAll('img_url = :image_url and id != :id',[':image_url'=>$v->img_url,':id'=>$v->id]);
-        }
+//        $c = Qingchun::find()->groupBy('img_url')->having('count(*) > 1')->all();
+//        foreach ($c as $k=>$v){
+//            $result = Qingchun::deleteAll('img_url = :image_url and id != :id',[':image_url'=>$v->img_url,':id'=>$v->id]);
+//        }
+        return $this->render('index');
 
     }
 
