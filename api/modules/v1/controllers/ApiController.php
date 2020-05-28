@@ -230,7 +230,7 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $xinggan = Tmp::find()->limit(10)->orderBy('RAND()')->all();
+        $xinggan = Xinggan::find()->limit(10)->orderBy('RAND()')->all();
 
         $data['data'] = $xinggan;
         return ApiResponse::success($data);
@@ -240,10 +240,10 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $qingchun =  Tmp::find()->limit(10)->orderBy('RAND()')->all();
-        if (empty($qingchun)){
-            $qingchun = Tmp::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
-        }
+        $qingchun =  Qingchun::find()->limit(10)->orderBy('RAND()')->all();
+//        if (empty($qingchun)){
+//            $qingchun = Qingchun::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
+//        }
         $data['data'] = $qingchun;
         return ApiResponse::success($data);
     }
@@ -253,9 +253,9 @@ class ApiController extends BaseController
         $name = \Yii::$app->request->post('name') ?? '';
         $type = \Yii::$app->request->post('type') ?? 0;
         if ($type){
-            $data = Tmp::find()->where(['name'=>$name])->all();
+            $data = Qingchun::find()->where(['name'=>$name])->all();
         }else{
-            $data = Tmp::find()->where(['name'=>$name])->all();
+            $data = Xinggan::find()->where(['name'=>$name])->all();
         }
 
         $data['data'] = $data;
