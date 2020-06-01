@@ -5,10 +5,9 @@ namespace api\modules\v1\controllers;
 use api\modules\v1\model\Customer;
 use common\components\ApiResponse;
 use common\components\ResponseCode;
+use common\models\CustomerLimit;
 use common\models\Qingchun;
-use common\models\Tmp;
 use common\models\Xinggan;
-use FFMpeg\FFMpeg;
 use GuzzleHttp\Client;
 
 class ApiController extends BaseController
@@ -25,6 +24,8 @@ class ApiController extends BaseController
             'get-xinggan' => ['POST','OPTIONS'],
             'get-qingchun' => ['POST','OPTIONS'],
             'get-detail' => ['POST','OPTIONS'],
+            'check-limit' => ['POST','OPTIONS'],
+            'add-times' => ['POST','OPTIONS'],
         ];
     }
 
@@ -40,7 +41,9 @@ class ApiController extends BaseController
             'update',
             'get-xinggan',
             'get-qingchun',
-            'get-detail'
+            'get-detail',
+            'check-limit',
+            'add-times'
         ];
         return $behaviors;
     }
@@ -252,6 +255,7 @@ class ApiController extends BaseController
     {
         $name = \Yii::$app->request->post('name') ?? '';
         $type = \Yii::$app->request->post('type') ?? 0;
+
         if ($type){
             $data = Qingchun::find()->where(['name'=>$name])->all();
         }else{
@@ -260,6 +264,42 @@ class ApiController extends BaseController
 
         $data['data'] = $data;
         return ApiResponse::success($data);
+    }
+
+
+    public function actionCheckLimit()
+    {
+        $customer =  \Yii::$app->user->getIdentity();
+        $customerId = $customer->getId();
+        $check = CustomerLimit::find()->where(['customer_id'=>$customerId])->one();
+        if (!empty($check)){
+            if ($check->click_cnt > $customer->turn_times){
+                $data['code'] = ResponseCode::EXCEEDS_LIMIT;
+                return ApiResponse::fail($data);
+            }
+
+            $check->click_cnt += 1;
+            $check->save(false);
+        }else{
+            $customerLimit = new CustomerLimit();
+            $customerLimit->customer_id = $customerId;
+            $customerLimit->click_cnt = 1;
+            $customerLimit->save(false);
+        }
+
+        return ApiResponse::success();
+    }
+
+    public function actionAddTimes()
+    {
+        $customer =  \Yii::$app->user->getIdentity();
+        $customer->turn_times += 5;
+        if ($customer->save(false)){
+            return ApiResponse::success();
+        }else{
+            $data['code'] = ResponseCode::DB_ERROR;
+            return ApiResponse::fail($data);
+        }
     }
 
 }
