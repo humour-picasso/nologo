@@ -7,6 +7,7 @@ use common\components\ApiResponse;
 use common\components\ResponseCode;
 use common\models\CustomerLimit;
 use common\models\Qingchun;
+use common\models\Tmp;
 use common\models\Xinggan;
 use GuzzleHttp\Client;
 
@@ -233,7 +234,7 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $xinggan = Xinggan::find()->limit(10)->orderBy('RAND()')->all();
+        $xinggan = Tmp::find()->limit(10)->orderBy('RAND()')->all();
 
         $data['data'] = $xinggan;
         return ApiResponse::success($data);
@@ -243,7 +244,7 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $qingchun =  Qingchun::find()->limit(10)->orderBy('RAND()')->all();
+        $qingchun =  Tmp::find()->limit(10)->orderBy('RAND()')->all();
 //        if (empty($qingchun)){
 //            $qingchun = Qingchun::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
 //        }
