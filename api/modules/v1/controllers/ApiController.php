@@ -272,11 +272,11 @@ class ApiController extends BaseController
         $type = \Yii::$app->request->post('type') ?? 0;
 
         if ($type){
-//            $data = Qingchun::find()->where(['name'=>$name])->all();
+            $data = Qingchun::find()->where(['name'=>$name])->all();
         }else{
-//            $data = Xinggan::find()->where(['name'=>$name])->all();
+            $data = Xinggan::find()->where(['name'=>$name])->all();
         }
-        $data = Tmp::find()->where(['name'=>$name])->all();
+//        $data = Tmp::find()->where(['name'=>$name])->all();
         $data['data'] = $data;
         return ApiResponse::success($data);
     }
