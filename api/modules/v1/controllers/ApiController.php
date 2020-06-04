@@ -236,7 +236,7 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $xinggan = Tmp::find()->limit(10)->orderBy('RAND()')->all();
+        $xinggan = Xinggan::find()->limit(10)->orderBy('RAND()')->all();
 
         $data['data'] = $xinggan;
         return ApiResponse::success($data);
@@ -246,7 +246,7 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $qingchun =  Tmp::find()->limit(10)->orderBy('RAND()')->all();
+        $qingchun =  Qingchun::find()->limit(10)->orderBy('RAND()')->all();
 //        if (empty($qingchun)){
 //            $qingchun = Qingchun::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
 //        }
@@ -258,11 +258,11 @@ class ApiController extends BaseController
     {
         $page = \Yii::$app->request->post('page') ?? 1;
 
-        $qingchun =  Tmp::find()->limit(10)->all();
-//        if (empty($qingchun)){
-//            $qingchun = Qingchun::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
-//        }
-        $data['data'] = $qingchun;
+        $xinggan = Xinggan::find()->limit(10)->orderBy('RAND()')->all();
+        if (empty($qingchun)){
+            $xinggan = Xinggan::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
+        }
+        $data['data'] = $xinggan;
         return ApiResponse::success($data);
     }
 
