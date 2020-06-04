@@ -27,6 +27,7 @@ class ApiController extends BaseController
             'get-detail' => ['POST','OPTIONS'],
             'check-limit' => ['POST','OPTIONS'],
             'add-times' => ['POST','OPTIONS'],
+            'get-index' => ['POST','OPTIONS'],
         ];
     }
 
@@ -44,7 +45,8 @@ class ApiController extends BaseController
             'get-qingchun',
             'get-detail',
             'check-limit',
-            'add-times'
+            'add-times',
+            'get-index'
         ];
         return $behaviors;
     }
@@ -245,6 +247,18 @@ class ApiController extends BaseController
         $page = \Yii::$app->request->post('page') ?? 1;
 
         $qingchun =  Tmp::find()->limit(10)->orderBy('RAND()')->all();
+//        if (empty($qingchun)){
+//            $qingchun = Qingchun::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
+//        }
+        $data['data'] = $qingchun;
+        return ApiResponse::success($data);
+    }
+
+    public function actionGetIndex()
+    {
+        $page = \Yii::$app->request->post('page') ?? 1;
+
+        $qingchun =  Tmp::find()->limit(10)->all();
 //        if (empty($qingchun)){
 //            $qingchun = Qingchun::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
 //        }
