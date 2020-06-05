@@ -259,9 +259,7 @@ class ApiController extends BaseController
         $page = \Yii::$app->request->post('page') ?? 1;
 
         $xinggan = Xinggan::find()->limit(10)->orderBy('RAND()')->all();
-        if (empty($qingchun)){
-            $xinggan = Xinggan::find()->offset(($page-8)*10)->limit(10)->groupBy('name')->orderBy('id desc')->all();
-        }
+
         $data['data'] = $xinggan;
         return ApiResponse::success($data);
     }
@@ -271,9 +269,8 @@ class ApiController extends BaseController
         $name = \Yii::$app->request->post('name') ?? '';
         $type = \Yii::$app->request->post('type') ?? 0;
 
-        if ($type){
-            $data = Qingchun::find()->where(['name'=>$name])->all();
-        }else{
+        $data = Qingchun::find()->where(['name'=>$name])->all();
+        if (empty($data)){
             $data = Xinggan::find()->where(['name'=>$name])->all();
         }
 //        $data = Tmp::find()->where(['name'=>$name])->all();
