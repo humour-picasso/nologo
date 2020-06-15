@@ -204,7 +204,7 @@ class ApiController extends BaseController
         $code = \Yii::$app->request->post('code');
         $client = new Client();
 
-        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx6deba7e9fd8804b8&secret=ff92cb04a0e393f5a6d5f524db6cfef2&js_code=".$code."&grant_type=authorization_code";
+        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx6deba7e9fd8804b8&secret=00433d79e59dffa3141e810e9c0eb323&js_code=".$code."&grant_type=authorization_code";
         $request = $client->request('GET',$url);
         $result = \GuzzleHttp\json_decode($request->getBody()->getContents());
 
