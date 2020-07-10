@@ -133,7 +133,36 @@ class ApiController extends BaseController
 
 
         try {
-            $response = VideoManager::DouYin()->start($requestUrl);
+            $config = [
+                'Bili' => ['b23.tv', 'www.bilibili.com'],
+                'DouYin' => ['douyin.com', 'iesdouyin.com'],
+                'HuoShan' => ['huoshan.com'],
+                'KuaiShou' => ['ziyang.m.kspkg.com', 'kuaishou.com', 'gifshow.com', 'chenzhongtech.com'],
+                'LiVideo' => ['www.pearvideo.com'],
+                'MeiPai' => ['www.meipai.com'],
+                'MoMo' => ['immomo.com'],
+                'PiPiGaoXiao' => ['ippzone.com'],
+                'PiPiXia' => ['pipix.com'],
+                'QuanMingGaoXiao' => ['longxia.music.xiaomi.com'],
+                'ShuaBao' => ['shua8cn.com/video_share'],
+                'TouTiao' => ['toutiaoimg.com', 'toutiaoimg.cn'],
+                'WeiShi' => ['weishi.qq.com'],
+                'XiaoKaXiu' => ['mobile.xiaokaxiu.com'],
+                'XiGua' => ['xigua.com'],
+                'ZuiYou' => ['izuiyou.com'],
+                'WeiBo' => ['weibo.com','weibo.cn'],
+                'MiaoPai' => ['miaopai.com'],
+            ];
+            $method = 'DouYin';
+            foreach ($config as $key => $domains){
+                foreach ($domains as $domain){
+                    if (strpos($requestUrl,$domain)){
+                        $method = $key;
+                    }
+                }
+            }
+
+            $response = VideoManager::$method()->start($requestUrl);
             $result = [
                 'code' => 100,
                 'info' => '获取成功',
