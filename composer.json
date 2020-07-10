@@ -23,7 +23,8 @@
         "denisogr/yii2-cronjobs": "dev-master",
         "mdmsoft/yii2-admin": "~2.0",
         "lkk/yii2-inspinia":"*",
-        "php-ffmpeg/php-ffmpeg": "^0.14.0"
+        "php-ffmpeg/php-ffmpeg": "^0.14.0",
+        "smalls/video-tools": "^1.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -41,5 +42,11 @@
         },
         "token":"6b9dc5c285e7a0a9cdf7c2ef3b42879e67761152"
 
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
     }
 }
