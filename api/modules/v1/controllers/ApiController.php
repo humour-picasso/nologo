@@ -10,6 +10,8 @@ use common\models\Qingchun;
 use common\models\Tmp;
 use common\models\Xinggan;
 use GuzzleHttp\Client;
+use Smalls\VideoTools\Exception\ErrorVideoException;
+use Smalls\VideoTools\VideoManager;
 
 class ApiController extends BaseController
 {
@@ -106,36 +108,41 @@ class ApiController extends BaseController
     public function actionVideoConversion()
     {
         $requestUrl = \Yii::$app->request->post('videoUrl');
-        $url = "https://www.tingsang.com/ajax/analyze.php";
+//        $url = "https://www.tingsang.com/ajax/analyze.php";
+//
+//        $headers = [
+//
+//            'Content-Type' => 'application/json; charset=UTF-8',
+//
+////            'X-Requested-With' => 'XMLHttpRequest',
+//        ];
+//
+//        $client = new Client(['headers'=>$headers]);
+//
+//        //允许重定向获取html
+//
+//        $res = $client->request('POST', $url,
+//            ['form_params' => [
+//                'link' => $requestUrl,
+//            ]
+//        ]);
+//
+//        $response = json_decode($res->getBody()->getContents(),true);
 
-        $headers = [
 
-            'Content-Type' => 'application/json; charset=UTF-8',
 
-//            'X-Requested-With' => 'XMLHttpRequest',
-        ];
 
-        $client = new Client(['headers'=>$headers]);
-
-        //允许重定向获取html
-
-        $res = $client->request('POST', $url,
-            ['form_params' => [
-                'link' => $requestUrl,
-            ]
-        ]);
-
-        $response = json_decode($res->getBody()->getContents(),true);
-
-        if ($response['code'] == 100){
+        try {
+            $response = VideoManager::DouYin()->start($requestUrl);
             $result = [
                 'code' => 100,
                 'info' => '获取成功',
-                'url'  => $response['data']['downurl'],
+                'url'  => $response['video_url'],
             ];
             $data['data'] = $result;
             return ApiResponse::success($data);
-        }else{
+        } catch (ErrorVideoException $e) {
+            \Yii::error($e->getTraceAsString());
             return ApiResponse::fail();
         }
     }
