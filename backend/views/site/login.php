@@ -1,45 +1,70 @@
-<html>
-<body>
+<?php
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
 
-<form id="user_form_login" enctype="application/x-www-form-urlencoded" class="global_form_box" action="/login" method="post">
-    <div>
-        <div>
-            <div class="form-elements">
-                <div id="email-wrapper" class="form-wrapper">
-                    <div id="email-label" class="form-label"><label for="email" class="required">Email Address</label></div>
-                    <div id="email-element" class="form-element">
-                        <input type="email" name="email" id="email" value="" tabindex="1" autofocus="autofocus" class="text">
-                    </div>
-                </div>
-                <div id="password-wrapper" class="form-wrapper">
-                    <div id="password-label" class="form-label"><label for="password" class="required">Password</label></div>
-                    <div id="password-element" class="form-element">
-                        <input type="password" name="password" id="password" value="" tabindex="2">
-                    </div>
-                </div>
-                <div class="form-wrapper" id="buttons-wrapper">
-                    <fieldset id="fieldset-buttons">
-                        <div id="submit-wrapper" class="form-wrapper">
-                            <div id="submit-label" class="form-label"> </div>
-                            <div id="submit-element" class="form-element">
-                                <button name="submit" id="submit" type="submit" tabindex="3">Sign In</button>
-                            </div>
-                        </div>
-                        <div id="remember-wrapper" class="form-wrapper">
-                            <div class="form-label" id="remember-label"> </div>
-                            <div id="remember-element" class="form-element">
-                                <input type="hidden" name="remember" value="">
-                                <input type="checkbox" name="remember" id="remember" value="1" tabindex="4">
-                                <label for="remember" class="optional">Remember Me</label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <input type="hidden" name="return_url" value="" id="return_url">
-            </div>
-        </div>
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $model \common\models\LoginForm */
+
+$this->title = 'Sign In';
+
+$fieldOptions1 = [
+    'options' => ['class' => 'form-group has-feedback'],
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-user form-control-feedback'></span>"
+];
+
+$fieldOptions2 = [
+    'options' => ['class' => 'form-group has-feedback'],
+    'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
+];
+?>
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href="#" style="color: #ffffff"><b>NoLogo</b></a>
     </div>
-</form>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Sign in to start your session</p>
 
-</body>
-</html>
+        <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
+
+        <?= $form
+            ->field($model, 'username', $fieldOptions1)
+            ->label(false)
+            ->textInput(['placeholder' => $model->getAttributeLabel('username')]) ?>
+
+        <?= $form
+            ->field($model, 'password', $fieldOptions2)
+            ->label(false)
+            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
+
+        <div class="row">
+            <div class="col-xs-8">
+                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-4">
+                <?= Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+            </div>
+            <!-- /.col -->
+        </div>
+
+
+        <?php ActiveForm::end(); ?>
+
+<!--        <div class="social-auth-links text-center">-->
+<!--            <p>- OR -</p>-->
+<!--            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in-->
+<!--                using Facebook</a>-->
+<!--            <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign-->
+<!--                in using Google+</a>-->
+<!--        </div>-->
+        <!-- /.social-auth-links -->
+
+<!--        <a href="#">I forgot my password</a><br>-->
+<!--        <a href="register.html" class="text-center">Register a new membership</a>-->
+
+    </div>
+    <!-- /.login-box-body -->
+</div><!-- /.login-box -->

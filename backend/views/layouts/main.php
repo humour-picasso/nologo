@@ -1,78 +1,63 @@
 <?php
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use lkk\inspinia\AppAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use yii\bootstrap\Alert;
+use cszchen\alte\AlteAsset;
 
-AppAsset::register($this);
-$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/lkk/yii2-inspinia/assets');
-
+AlteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <![endif]-->
     <?php $this->head() ?>
 </head>
+<body class="fixed skin-blue">
+<?php $this->beginBody();?>
+<div class="wrapper">
+    <!-- header -->
+    <?=$this->render('header')?>
+    <?=$this->render('sidebar')?>
 
-<body><?php $this->beginBody() ?>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <?php
+            if ($this->title) {
+                echo Html::tag("h1", $this->title);
+            }
 
-<div id="wrapper" class="">
+//            if (!empty($this->params['breadcrumbs'])) {
+//                echo \yii\widgets\Breadcrumbs::widget([
+//                    'links' => $this->params['breadcrumbs'],
+//                ]);
+//            }
 
-    <?= $this->render('sidebar', ['directoryAsset' => $directoryAsset]) ?>
+            ?>
+        </section>
+        <section class="content">
+            <?php echo $content;?>
+        </section>
 
-    <div id="page-wrapper" class="gray-bg">
-        <div class="row border-bottom">
-            <?= $this->render('header', ['directoryAsset' => $directoryAsset]) ?>
-        </div>
-        <div class="row wrapper border-bottom white-bg page-heading">
-            <?php if (isset($this->blocks['content-header'])) { ?>
-                <?= $this->blocks['content-header'] ?>
-            <?php } else { ?>
-                <div class="col-sm-<?= isset($this->blocks['content-header-actions']) ? 6 : 12 ?>">
-                    <h2><?= $this->title ?></h2>
-
-                    <?=
-                    Breadcrumbs::widget([
-                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                        'activeItemTemplate' => "<li class=\"active\"><strong>{link}</strong></li>\n"
-                    ])
-                    ?>
-                </div>
-                <?php if (isset($this->blocks['content-header-actions'])): ?>
-                    <div class="col-sm-6">
-                        <div class="title-action">
-                            <?= $this->blocks['content-header-actions'] ?>
-                        </div>
-                    </div>
-                <?php endif ?>
-            <?php } ?>
-
-        </div>
-
-        <div class="wrapper wrapper-content">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <?= $content ?>
-                </div>
-            </div>
-        </div>
-        <?= $this->render('footer', ['directoryAsset' => $directoryAsset]) ?>
     </div>
+
+    <footer class="main-footer"><b>Copyright</b> humourpicasso © 2020 </footer>
 </div>
-<?php $this->endBody() ?>
+<?php $this->endBody();?>
 </body>
 </html>
 <?php $this->endPage() ?>

@@ -1,14 +1,8 @@
 <?php
 namespace backend\controllers;
 
-use common\models\Customer;
-use common\models\Qingchun;
-use common\models\Tmp;
-use common\models\Xinggan;
 use Yii;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use common\models\LoginForm;
 
 /**
@@ -16,32 +10,34 @@ use common\models\LoginForm;
  */
 class SiteController extends Controller
 {
+
+    public $layout = 'main.php';
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
-//            'access' => [
-//                'class' => AccessControl::className(),
-//                'rules' => [
-//                    [
-//                        'actions' => ['login', 'error'],
-//                        'allow' => true,
-//                    ],
-//                    [
-//                        'actions' => ['logout', 'index'],
-//                        'allow' => true,
-//                        'roles' => ['@'],
-//                    ],
-//                ],
-//            ],
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'logout' => ['post'],
-//                ],
-//            ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['logout', 'index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['get'],
+                ],
+            ],
         ];
     }
 
@@ -64,7 +60,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'main';
         return $this->render('index');
     }
 
@@ -75,6 +70,8 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+
+        $this->layout = 'login';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
