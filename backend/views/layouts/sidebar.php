@@ -5,15 +5,19 @@
 use cszchen\alte\widgets\Sidebar;
 
 $menu = [];
-foreach (\mdm\admin\components\MenuHelper::getAssignedMenu(Yii::$app->user->id) as $key => $value){
-    $menu[$key]['label'] = $value['label'];
-    $menu[$key]['url'] = $value['url'][0];
-    $menu[$key]['icon'] = 'fa fa-dashboard';
+$callback = function ($item){
+    $return = [
+        'label' => $item['name'],
+        'url' => [$item['route']],
+        'icon'=>'fa '.json_decode($item['data'])->icon
+    ];
+    $item['children'] && $return['items'] = $item['children'];
+    return $return;
+};
 
-}
-//echo "<pre>";
-//print_r($menu);
-//exit();
+$menu = \mdm\admin\components\MenuHelper::getAssignedMenu(Yii::$app->user->id,null,$callback,true);
+
+
 echo Sidebar::widget([
         'search' => false,
         'header' => '',
