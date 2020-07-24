@@ -71,7 +71,7 @@ return [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             '*',
-            'gii'
+//            'gii'
             //'admin/*',//允许所有人访问admin节点及其子节点
             //此处的action列表，允许任何人（包括游客）访问
             //所以如果是正式环境（线上环境），不应该在这里配置任何东西，为空即可

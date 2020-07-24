@@ -12,11 +12,9 @@ AppAsset::register($this);
 <html lang="en">
 <?=$this->render('head')?>
 <body>
-<?=$this->render('nav')?>
+<?=$this->render('login_nav')?>
 <?php $this->beginBody() ?>
-<div class="content">
-    <?= $content ?>
-</div>
+<?= $content ?>
 
 <?=$this->render('footer')?>
 <?php $this->endBody() ?>
