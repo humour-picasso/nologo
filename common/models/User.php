@@ -123,8 +123,7 @@ class User extends ActiveRecord implements IdentityInterface,RateLimitInterface
 
     public function validatePassword($password)
     {
-        $hash = \Yii::$app->getSecurity()->generatePasswordHash($password);
-        return \Yii::$app->getSecurity()->validatePassword($password, $hash);
+        return \Yii::$app->getSecurity()->validatePassword($password, $this->password_hash);
     }
 
 }
