@@ -137,7 +137,7 @@ class ApiController extends BaseController
                 'Bili' => ['b23.tv', 'www.bilibili.com'],
                 'DouYin' => ['douyin.com', 'iesdouyin.com'],
                 'HuoShan' => ['huoshan.com'],
-                'KuaiShou' => ['ziyang.m.kspkg.com', 'kuaishou.com', 'gifshow.com', 'chenzhongtech.com','kuaishou'],
+                'KuaiShou' => ['ziyang.m.kspkg.com', 'kuaishou.com', 'gifshow.com', 'chenzhongtech.com','kuaishouapp.com'],
                 'LiVideo' => ['www.pearvideo.com'],
                 'MeiPai' => ['www.meipai.com'],
                 'MoMo' => ['immomo.com'],
