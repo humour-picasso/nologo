@@ -164,7 +164,7 @@ class ApiController extends BaseController
                     }
                 }
             }
-
+            \Yii::info($requestUrl);
             $response = VideoManager::$method()->start($requestUrl);
             $result = [
                 'code' => 100,
@@ -173,8 +173,8 @@ class ApiController extends BaseController
             ];
             $data['data'] = $result;
             return ApiResponse::success($data);
-        } catch (ErrorVideoException $e) {
-            \Yii::error($e->getTraceAsString());
+        } catch (\Throwable $e) {
+            \Yii::error($e->getMessage());
             return ApiResponse::fail();
         }
     }
