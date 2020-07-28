@@ -162,7 +162,8 @@ class ApiController extends BaseController
                 }
             }
 //            \Yii::error($requestUrl);
-            $response = VideoManager::KuaiShou()->start($requestUrl);
+            \Yii::error($method);
+            $response = VideoManager::$method()->start($requestUrl);
             \Yii::error(json_encode($response));
             $result = [
                 'code' => 100,
