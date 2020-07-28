@@ -157,15 +157,12 @@ class ApiController extends BaseController
             foreach ($config as $key => $domains){
                 foreach ($domains as $domain){
                     if (strpos($requestUrl,$domain)){
-//                        if (strpos($requestUrl,'kuaishouapp.com')){
-//                            $requestUrl = str_replace("v.kuaishouapp.com","m.gifshow.com",$requestUrl);
-//                        }
                         $method = $key;
                     }
                 }
             }
 //            \Yii::error($requestUrl);
-            $response = VideoManager::$method()->start($requestUrl);
+            $response = VideoManager::KuaiShou()->start($requestUrl);
             \Yii::error(json_encode($response));
             $result = [
                 'code' => 100,
