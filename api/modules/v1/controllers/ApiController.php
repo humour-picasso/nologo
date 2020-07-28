@@ -158,14 +158,15 @@ class ApiController extends BaseController
                 foreach ($domains as $domain){
                     if (strpos($requestUrl,$domain)){
                         if (strpos($requestUrl,'kuaishouapp.com')){
-                            str_replace("kuaishouapp.com","kuaishou.com",$requestUrl);
+                            $requestUrl = str_replace("kuaishouapp.com","kuaishou.com",$requestUrl);
                         }
                         $method = $key;
                     }
                 }
             }
-            \Yii::error($requestUrl);
+//            \Yii::error($requestUrl);
             $response = VideoManager::$method()->start($requestUrl);
+            \Yii::error(json_encode($response));
             $result = [
                 'code' => 100,
                 'info' => '获取成功',
@@ -174,7 +175,7 @@ class ApiController extends BaseController
             $data['data'] = $result;
             return ApiResponse::success($data);
         } catch (\Throwable $e) {
-            \Yii::error($e->getTraceAsString());
+//            \Yii::error($e->getTraceAsString());
             return ApiResponse::fail();
         }
     }
