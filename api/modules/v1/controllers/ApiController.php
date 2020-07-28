@@ -157,9 +157,9 @@ class ApiController extends BaseController
             foreach ($config as $key => $domains){
                 foreach ($domains as $domain){
                     if (strpos($requestUrl,$domain)){
-                        if (strpos($requestUrl,'kuaishouapp.com')){
-                            $requestUrl = str_replace("v.kuaishouapp.com","m.gifshow.com",$requestUrl);
-                        }
+//                        if (strpos($requestUrl,'kuaishouapp.com')){
+//                            $requestUrl = str_replace("v.kuaishouapp.com","m.gifshow.com",$requestUrl);
+//                        }
                         $method = $key;
                     }
                 }
