@@ -7,9 +7,9 @@ use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use yii\web\Controller;
 
 /**
  * Site controller
@@ -72,6 +72,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         if (Yii::$app->user->isGuest){
 
             return $this->render('index');

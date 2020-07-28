@@ -35,6 +35,9 @@ return [
                 'dmstr\web\AdminLteAsset' => [
                     'skin' => 'skin-black',
                 ],
+                // ...
+                'yii\web\JqueryAsset' => false,
+
             ],
         ],
         'JsonFormat' => [

@@ -38,7 +38,7 @@ p {
     padding: 10px 15px;
 }
 input, textarea {
-    border: 0px !important;
+    /*border: 0px !important;*/
     /*box-shadow: none !important;*/
     border-bottom: 1px solid #ddd !important;
 }
@@ -536,6 +536,8 @@ form.contact-form h2 {
 .footer {
     background: #1a1a1a;
     padding: 20px 0px;
+    position: relative;
+    bottom: 0px;
 }
 .footer ul {
     list-style: none;
@@ -600,4 +602,89 @@ form.contact-form h2 {
         width: 100%;
     }
 }
+.container-box{
+    min-height: 80vh;
+    overflow-y: hidden;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #83c0ff;
+    padding-top: 20px;
+}
 
+.box-card{
+    margin: 1%;
+    width: 23%;
+    float: left;
+}
+@media (max-width: 767px) {
+    .box-card{
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+}
+#app{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #83c0ff;
+    overflow: hidden;
+
+}
+.text{
+    color: #0e9ce5;
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+.parse-box{
+    margin: 1%;
+    position: relative;
+    top: 15px;
+}
+
+.parse-box > .form-group{
+    width: 80%;
+    float: left;
+}
+
+.parse-box button {
+    margin-left: 3%;
+    width: 17%;
+    float: left;
+}
+.order-table{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #83c0ff;
+    overflow: hidden;
+}
+.order-table table{
+    background-color:#FFF;
+    margin-left:1%;
+    width:98%;
+    margin-top:15px;
+}
+.order-table h5{
+    color: #fff;
+    margin-left: 1%;
+}
+.order-table ul{
+    padding-top: 15px;
+    padding-left: 10px;
+}
+.el-timeline-item__content{
+    color: #FFF;
+}
+.el-timeline-item__tail{
+    border-left: 2px solid #FFF;
+}
+.el-timeline-item__node{
+    background-color: #FFF;
+}
+.el-timeline-item__wrapper{
+    top: -8px;
+}

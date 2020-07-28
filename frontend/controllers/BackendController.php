@@ -1,42 +1,48 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Order;
+use common\models\Tmp;
+use frontend\controllers\common\BaseController;
 use Yii;
-use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
-use yii\web\Controller;
 
-/**
- * Site controller
- */
-class BackendController extends Controller
+class BackendController extends BaseController
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
-        return [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
-    {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ]
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'parse' => ['POST'],
+                ],
+            ],
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
     public function actionIndex()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Order::find()->where(['user_id'=>Yii::$app->user->getId()])->orderBy('id DESC'),
+            'pagination' => [
+                'pageSize' => 5
+            ]
+        ]);
+
+        return $this->render('index',['dataProvider'=>$dataProvider]);
+    }
+
+
+    public function actionParse()
+    {
+
+    }
+
+
+    public function actionPay()
     {
         return $this->render('index');
     }
