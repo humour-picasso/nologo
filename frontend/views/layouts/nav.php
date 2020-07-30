@@ -21,6 +21,7 @@
                 <?php }else{ ?>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/backend/index">视频解析</a></li>
+                        <li><a href="/backend/order">解析记录</a></li>
                         <li><a href="/backend/pay">充值服务</a></li>
                         <li class="dropdown">
                             <a id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:;">

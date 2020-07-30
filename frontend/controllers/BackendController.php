@@ -2,15 +2,11 @@
 namespace frontend\controllers;
 
 use common\components\ApiResponse;
-use common\models\Order;
-use common\models\Tmp;
 use frontend\controllers\common\BaseController;
 use frontend\models\ParseForm;
 use GuzzleHttp\Client;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
-use yii\helpers\Json;
 use yii\web\Response;
 
 class BackendController extends BaseController
@@ -32,6 +28,11 @@ class BackendController extends BaseController
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionOrder()
+    {
+        return $this->render('order');
     }
 
 
