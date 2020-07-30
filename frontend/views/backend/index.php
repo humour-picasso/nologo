@@ -39,68 +39,15 @@
 
         <div class="parse-box clearfix">
             <div class="form-group">
-                <input type="email" class="form-control"  id="url" placeholder="请粘贴短视频地址">
+                <input type="text" class="form-control"  id="url" placeholder="请粘贴短视频地址">
             </div>
-            <button type="button" class="btn btn-danger">解析</button>
+            <button type="button" class="btn btn-danger" id="parse-btn">解析</button>
         </div>
+        <div class="parse-box clearfix">
+            <a href="javascript:;" class="btn btn-success hidden" style="margin-left: 5px" id="download-btn">下载视频</a>
+            <a href="javascript:;" class="btn btn-warning hidden" style="margin-left: 5px" id="copy-btn">复制链接</a>
 
-        <?php if ($dataProvider->count){ ?>
-        <div class="order-table">
-            <h5>订单记录</h5>
-            <?php
-            echo \yii\grid\GridView::widget([
-                'dataProvider' => $dataProvider,
-                'layout'=>"{items}\n{pager}",
-                'pager'=>[
-//                    'options'=>['class'=>'hidden'],//关闭自带分页
-                    'firstPageLabel'=>"首页",
-                    'prevPageLabel'=>'上一页',
-                    'nextPageLabel'=>'下一页',
-                    'lastPageLabel'=>'未页',
-                ],
-                'columns' => [
-                    [
-                        'label' => '订单号',
-                        'value' =>'order_no'
-                    ],
-                    [
-                        'label' => '解析地址',
-                        'value' =>'parse_url'
-                    ],
-                    [
-                        'label' => '创建时间',
-                        'value' =>function($model){
-                            return date('Y-m-d H:i:s',$model->created_at);
-                        }
-                    ],
-                    ['label' => '无水印视频','value' =>'video_url' ],
-                    ['label' => '视频封面','value' =>'img_url' ],
-                    ['label' => '描述','value' =>'desc' ],
-                    [
-                        'label' => '状态',
-                        'value' => function($model){
-                            if ($model->status == 1){
-                                return '成功';
-                            }else{
-                                return '失败';
-                            }
-                        },
-                    ]
-                ],
-                'options' => [
-                    'style' =>     'overflow:auto;margin-bottom:50px',
-                    'id'    =>     'grid',
-                ],
-                'tableOptions' => [
-                    'class' => 'table table-hover table-striped table-bordered table-responsive',
-                    'style' => 'min-width:100em;'
-                ],
-                'headerRowOptions'=>['style'=>'color:#0e9ce5;'],
-                'rowOptions'=>['style'=>'background-color:#fff;'],
-                'footerRowOptions'=>['style'=>'color:#ddd;']
-            ])?>
         </div>
-        <?php }else{ ?>
             <div class="order-table">
                 <el-timeline :reverse="reverse">
                     <el-timeline-item
@@ -111,9 +58,10 @@
                     </el-timeline-item>
                 </el-timeline>
             </div>
-        <?php } ?>
+        <input id="copy-text" value="" style="background-color: rgba(0,0,0,0);border: none;color: rgba(0,0,0,0);width: 5px">
     </div>
 </div>
+
 <script>
     var Main = {
         data() {
@@ -130,8 +78,86 @@
                     content: '点击解析按钮，即可获得无水印短视频',
                 }]
             };
+        },
+        methods: {
+            invalidAlert(message) {
+                this.$message({
+                    showClose: true,
+                    message: message,
+                    type: 'warning',
+                    offset:50
+                });
+            },
+            failAlert(message) {
+                this.$message({
+                    showClose: true,
+                    message: message,
+                    type: 'error',
+                    offset:50
+                });
+            },
+            successAlert(message) {
+                this.$message({
+                    showClose: true,
+                    message: message,
+                    type: 'success',
+                    offset:50
+                });
+            },
         }
     };
     var Ctor = Vue.extend(Main)
-    new Ctor().$mount('#app')
+    var app = new Ctor().$mount('#app')
 </script>
+<?php
+$csrf = Yii::$app->request->csrfParam;
+$csrfToken = Yii::$app->request->csrfToken;
+
+$script = <<<JS
+    $(document).ready(function(){
+        $('#parse-btn').click(function () {
+            var url = $('#url').val();
+            if (url == ''){
+                app.invalidAlert('请粘贴要解析的视频地址');
+                return;
+            } 
+            $.post('/backend/parse',{"{$csrf}":"{$csrfToken}",'url':url},function(data) {
+                if (data.code == 0){
+                    $('#download-btn').removeClass('hidden');
+                    $('#copy-btn').removeClass('hidden');
+                    $('#video-img').removeClass('hidden');
+                    $('#title').removeClass('hidden');
+                    $('#title').text(data.data.desc);
+                    $('#video-img').attr('src',data.data.video_url);
+                    $('#download-btn').attr('data-url',data.data.video_url); 
+                    $('#copy-text').val(data.data.video_url);
+                    app.successAlert('解析成功');
+
+                }else{
+                    app.failAlert('解析失败');
+                }
+            });
+        });
+        
+        
+        $('#download-btn').click(function() {
+            var url = $(this).data('url');
+            $.post('/backend/download',{"{$csrf}":"{$csrfToken}",'url':url},function(data) {
+                console.log(data);
+                download("/" + data)
+            });
+            
+        });
+        
+        $("#copy-btn").on('click',function(){
+        var e = document.getElementById("copy-text");//对象是content
+            e.select(); //选择对象
+            document.execCommand("Copy"); //执行浏览器复制命令
+            app.successAlert('复制成功');
+        });
+        
+    });
+
+JS;
+$this->registerJS($script);
+?>

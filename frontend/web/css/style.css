@@ -655,6 +655,10 @@ form.contact-form h2 {
     width: 17%;
     float: left;
 }
+.parse-box video {
+    width: 150px;
+    float: left;
+}
 .order-table{
     width: 100%;
     margin-left: auto;
