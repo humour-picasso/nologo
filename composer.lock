@@ -2176,16 +2176,16 @@
         },
         {
             "name": "smalls/video-tools",
-            "version": "1.2.4",
+            "version": "1.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smalls0098/video-tools.git",
-                "reference": "c9ee0168e5d1536b6b90196b52b0aecca141015d"
+                "reference": "564621f82f9c1be12fe38bc27a20a3ee3aa903ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smalls0098/video-tools/zipball/c9ee0168e5d1536b6b90196b52b0aecca141015d",
-                "reference": "c9ee0168e5d1536b6b90196b52b0aecca141015d",
+                "url": "https://api.github.com/repos/smalls0098/video-tools/zipball/564621f82f9c1be12fe38bc27a20a3ee3aa903ff",
+                "reference": "564621f82f9c1be12fe38bc27a20a3ee3aa903ff",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2230,7 +2230,7 @@
                 "smalls",
                 "video-tools"
             ],
-            "time": "2020-07-17T12:40:23+00:00"
+            "time": "2020-07-30T07:53:30+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
