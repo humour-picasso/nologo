@@ -3,9 +3,11 @@ namespace frontend\controllers;
 
 use common\components\ApiResponse;
 use frontend\controllers\common\BaseController;
+use frontend\models\OrderForm;
 use frontend\models\ParseForm;
 use GuzzleHttp\Client;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 
@@ -32,7 +34,16 @@ class BackendController extends BaseController
 
     public function actionOrder()
     {
-        return $this->render('order');
+        $form  = new OrderForm();
+
+        $form->load(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $form->findOrder()
+        ]);
+        return $this->render('order',[
+            'dataProvider' => $dataProvider,
+            'searchModel' => $form
+        ]);
     }
 
 

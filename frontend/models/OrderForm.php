@@ -28,7 +28,7 @@ class OrderForm extends Model
     public function findOrder()
     {
         $user_id = Yii::$app->user->getId();
-        $query = Order::find()->where(['user_id'=>$user_id])->andFilterWhere(['like','parse_url',$this->url]);
+        $query = Order::find()->where(['user_id'=>$user_id])->andFilterWhere(['like','parse_url',$this->url])->orderBy('id DESC');
 
         return $query;
 
