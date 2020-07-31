@@ -3,7 +3,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>NoLogo</title>
+    <title>小云解析</title>
     <meta name="description" content="抖音视频，快手视频，西瓜视频，今日头条，火山小视频，微博，微视频，美拍，映客视频，陌陌等各大流行短视频解析下载，一键下载无忧！">
     <meta name="keywords" content="抖音视频,快手视频,西瓜视频,今日头条,火山小视频,微博,微视频,美拍,映客视频,陌陌 等各大流行短视频解析下载">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700|Roboto:600" rel="stylesheet">
