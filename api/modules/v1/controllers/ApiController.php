@@ -151,7 +151,7 @@ class ApiController extends BaseController
             $data['data'] = $result;
             return ApiResponse::success($data);
         } catch (\Throwable $e) {
-//            \Yii::error($e->getTraceAsString());
+            \Yii::error($e->getTraceAsString());
             return ApiResponse::fail();
         }
     }
