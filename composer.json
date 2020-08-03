@@ -25,7 +25,8 @@
         "php-ffmpeg/php-ffmpeg": "^0.14.0",
         "cszchen/alte": "^2.0",
         "dmstr/yii2-adminlte-asset": "^2.6",
-        "dektrium/yii2-user": "^0.9.14"
+        "dektrium/yii2-user": "^0.9.14",
+        "smalls/video-tools": "^1.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
