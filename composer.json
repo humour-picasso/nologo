@@ -23,7 +23,7 @@
         "denisogr/yii2-cronjobs": "dev-master",
         "mdmsoft/yii2-admin": "~2.0",
         "php-ffmpeg/php-ffmpeg": "^0.14.0",
-        "smalls/video-tools": "^1.2",
+        "smalls/video-tools": "^1.3",
         "cszchen/alte": "^2.0",
         "dmstr/yii2-adminlte-asset": "^2.6",
         "dektrium/yii2-user": "^0.9.14"
