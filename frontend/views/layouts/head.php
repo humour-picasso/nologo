@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700|Roboto:600" rel="stylesheet">
     <!-- 引入样式 -->
     <script src="//unpkg.com/vue/dist/vue.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
     <script src="/js/jquery.min.js"></script>

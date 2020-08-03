@@ -72,6 +72,14 @@ use yii\helpers\Url;
                         'format' => 'raw'
                     ],
                     [
+                        'label' => '作者',
+                        'value' =>function($model){
+                            return '<span style="color: #606266;font-weight: bolder">'.$model->user_name.'</span>';
+                        },
+                        'contentOptions' => ['style'=>'min-width:100px;max-width:200px;'],
+                        'format' => 'raw'
+                    ],
+                    [
                         'label' => '状态',
                         'value' => function($model){
                             if ($model->status == 1){

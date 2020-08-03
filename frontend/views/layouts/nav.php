@@ -22,14 +22,22 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/backend/index">视频解析</a></li>
                         <li><a href="/backend/order">解析记录</a></li>
-                        <li><a href="/backend/pay">充值服务</a></li>
+                        <li class="dropdown">
+                            <a id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:;">
+                                <span>充值服务</span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                <li><a href="<?=\yii\helpers\Url::to('/backend/shop')?>"><i class="ion-edit"></i>选购套餐</a></li>
+                                <li><a href="<?=\yii\helpers\Url::to('/backend/pay-log')?>" ><i class="ion-log-out"></i> 购买记录 </a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a id="dLabel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:;">
                                 <i class="fa fa-user" style="font-size: 20px"></i>
                                 <span><?=Yii::$app->getUser()->getIdentity()->username?></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dLabel">
-                                <li><a href="<?=\yii\helpers\Url::to('site/reset-password')?>"><i class="ion-edit"></i> 修改密码 </a></li>
+                                <li><a href="<?=\yii\helpers\Url::to('/site/reset-password')?>"><i class="ion-edit"></i> 修改密码 </a></li>
                                 <li><a href="javascript:;" class="logout"><i class="ion-log-out"></i> 退出登录 </a></li>
                             </ul>
                         </li>

@@ -101,6 +101,12 @@ class BackendController extends BaseController
         fclose($video);
         return $filename;
     }
+
+
+    public function actionShop()
+    {
+        return $this->render('shop');
+    }
     
     
 }

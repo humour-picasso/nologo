@@ -63,10 +63,10 @@ class ParseForm extends Model
             $response = VideoManager::$method()->start($this->url);
             //解析成功生成订单
             if (isset($response['video_url']) && !empty($response['video_url'])){
-                $user_id = Yii::$app->user->getId();
-                //检查是否解析过该地址
-                $check = Order::find()->where(['parse_url'=>$this->url])->one();
-                if (empty($check)){
+                $trans = Yii::$app->db->beginTransaction();
+                try {
+                    $user = Yii::$app->user->getIdentity();
+                    $user_id = Yii::$app->user->getId();
                     $order = new Order();
                     $order->order_no = date('Ymd').time().$user_id;
                     $order->parse_url = $this->url;
@@ -79,13 +79,19 @@ class ParseForm extends Model
                     $order->md5 = $response['md5'];
                     $order->user_name = $response['user_name'];
                     $order->user_head_img = $response['user_head_img'];
-                    if (!$order->save(false)){
-                        Yii::error('订单生成失败');
-                        return [];
+                    $order->save(false);
+                    //todo:如果是次数会员减次数，包月包年会员不减 1次数 2包月 3包年
+                    if ($user->user_type == 1){
+                        $user->limit -= 1;
+                        $user->save(false);
                     }
-
-                    //todo:如果是次数会员减次数，包月包年会员不减
+                    $trans->commit();
+                } catch (\Exception $e) {
+                    $trans->rollBack();
+                    throw $e;
                 }
+
+
             }
 
 

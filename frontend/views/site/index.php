@@ -53,9 +53,9 @@
                 <div class="col-md-4">
                     <div class="single-price-block">
                         <h2 class="title">按次数</h2>
-                        <div class="price">¥3.0 <small>/100次</small></div>
+                        <div class="price">¥3.0 <small>/30次</small></div>
                         <ul>
-                            <li><span>平均单次0.03元</span></li>
+                            <li><span>平均单次0.1元</span></li>
                             <li><span>适合低频次使用用户</span></li>
                             <li><span>新用户免费送5次</span></li>
                         </ul>
