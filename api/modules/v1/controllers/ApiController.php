@@ -107,30 +107,8 @@ class ApiController extends BaseController
 
     public function actionVideoConversion()
     {
-        $requestUrl = \Yii::$app->request->post('videoUrl');
-//        $url = "https://www.tingsang.com/ajax/analyze.php";
-//
-//        $headers = [
-//
-//            'Content-Type' => 'application/json; charset=UTF-8',
-//
-////            'X-Requested-With' => 'XMLHttpRequest',
-//        ];
-//
-//        $client = new Client(['headers'=>$headers]);
-//
-//        //允许重定向获取html
-//
-//        $res = $client->request('POST', $url,
-//            ['form_params' => [
-//                'link' => $requestUrl,
-//            ]
-//        ]);
-//
-//        $response = json_decode($res->getBody()->getContents(),true);
-
-
-
+        preg_match("/http[s]{0,1}:[\/]{2}[a-z]+[.]{1}[a-z\d\-]+[.]{1}[a-z\d]*[\/]*[A-Za-z\d]*[\/]*[A-Za-z\d]*/",\Yii::$app->request->post('videoUrl'),$array);
+        $requestUrl = $array[0];
 
         try {
             $config = [
