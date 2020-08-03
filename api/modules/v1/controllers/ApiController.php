@@ -107,8 +107,8 @@ class ApiController extends BaseController
 
     public function actionVideoConversion()
     {
-        preg_match("/http[s]{0,1}:[\/]{2}[a-z]+[.]{1}[a-z\d\-]+[.]{1}[a-z\d]*[\/]*[A-Za-z\d]*[\/]*[A-Za-z\d]*/",\Yii::$app->request->post('videoUrl'),$array);
-        $requestUrl = $array[0];
+//        preg_match("/http[s]{0,1}:[\/]{2}[a-z]+[.]{1}[a-z\d\-]+[.]{1}[a-z\d]*[\/]*[A-Za-z\d]*[\/]*[A-Za-z\d]*/",\Yii::$app->request->post('videoUrl'),$array);
+//        $requestUrl = $array[0];
 
         try {
             $config = [
