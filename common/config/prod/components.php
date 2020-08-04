@@ -8,7 +8,7 @@
 return [
     'database' => [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=127.0.0.1;dbname=nologo',
+        'dsn' => 'mysql:host=rm-bp1g06730s0ieilj6o.mysql.rds.aliyuncs.com;dbname=nologo',
         'username' => 'nologo',
         'password' => '!@noLogo@!',
         'charset' => 'utf8mb4',
